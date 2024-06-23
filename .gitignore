@@ -33,7 +33,7 @@ logs/
 *.pyc
 *.pyo
 *~
-
+.venv
 .env
 cache/*
 data/*
