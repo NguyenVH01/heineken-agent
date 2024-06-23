@@ -8,7 +8,7 @@ from src.agents.image_agent.image_agent_tool import ImageAgent
 from src.agents.base import BaseChainlitAgent
 from src.utils.llm_utils import load_model
 from .prompts import WELCOME_MESSAGE, BASE_SYSTEM_PROMPT, SYSTEM_PROMPT
-from src.const import SOLUTION_ONE, SOLUTION_TWO, SOLUTION_THREE, SOLUTION_FOUR, SOLUTION_FIVE
+from src.agents.image_agent.const import ImageAnalysisAction
 from src.agents.image_agent.prompt import SOLUTION_ONE_PROMPT, SOLUTION_TWO_PROMPT, SOLUTION_THREE_PROMPT, SOLUTION_FOUR_PROMPT, SOLUTION_FIVE_PROMPT
 
 load_dotenv(override=True)
@@ -52,6 +52,24 @@ class LLMCompilerAgent(BaseChainlitAgent):
   #   return load_image_tool(path=LLMCompilerAgent._image_path)
 
   @classmethod
+  async def _load_action_menu(cls):
+    actions = [
+      cl.Action(name=ImageAnalysisAction.SOLUTION_ONE.value, value="solution1",
+                description="Vấn đề kinh doanh 1"),
+      cl.Action(name=ImageAnalysisAction.SOLUTION_TWO.value, value="solution2",
+                description="Vấn đề kinh doanh 2"),
+      cl.Action(name=ImageAnalysisAction.SOLUTION_THREE.value, value="solution3",
+                description="Vấn đề kinh doanh 3"),
+      cl.Action(name=ImageAnalysisAction.SOLUTION_FOUR.value, value="solution4",
+                description="Vấn đề kinh doanh 4"),
+      cl.Action(name=ImageAnalysisAction.SOLUTION_FIVE.value, value="solution5",
+                description="Vấn đề kinh doanh 5"),
+      cl.Action(name=ImageAnalysisAction.ANALYZE_NEW.value, value="analyze_new",
+                description="Phân tích hình ảnh mới"),
+    ] 
+    await cl.Message(content="Hãy chọn các vấn đề bạn muốn phân tích:", actions=actions).send()
+
+  @classmethod
   async def _ask_file_handler(cls):
     files = None
 
@@ -76,20 +94,8 @@ class LLMCompilerAgent(BaseChainlitAgent):
     await LLMCompilerAgent._ask_file_handler()
     llm = load_model()
     LLMCompilerAgent._image_agent = ImageAgent(llm=llm)
-    actions = [
-        cl.Action(name=SOLUTION_ONE, value="solution1",
-                  description="Vấn đề kinh doanh 1"),
-        cl.Action(name=SOLUTION_TWO, value="solution2",
-                  description="Vấn đề kinh doanh 2"),
-        cl.Action(name=SOLUTION_THREE, value="solution3",
-                  description="Vấn đề kinh doanh 3"),
-        cl.Action(name=SOLUTION_FOUR, value="solution4",
-                  description="Vấn đề kinh doanh 4"),
-        cl.Action(name=SOLUTION_FIVE, value="solution5",
-                  description="Vấn đề kinh doanh 5"),
-    ]
-
-    await cl.Message(content="Hãy chọn các vấn đề bạn muốn phân tích:", actions=actions).send()
+   
+    await LLMCompilerAgent._load_action_menu()
     # tools = LLMCompilerAgent._init_tools()
     # agent = ReActAgent.from_tools(
     #     tools, llm=llm, verbose=True, max_iterations=MAX_ITERATIONS
@@ -99,46 +105,38 @@ class LLMCompilerAgent(BaseChainlitAgent):
 
   @classmethod
   async def aon_message(cls, message: cl.Message, *args, **kwargs):
-    response = LLMCompilerAgent._image_agent.process(message.content)
-    msg = cl.Message(response)
+    await LLMCompilerAgent._image_agent.process(message.content)
+    
 
-    await msg.send()
-
-  @cl.action_callback(SOLUTION_ONE)
+  @cl.action_callback(ImageAnalysisAction.SOLUTION_ONE.value)
   async def on_action(action: cl.Action):
-    response = await LLMCompilerAgent._image_agent.process(
-        SOLUTION_ONE_PROMPT)
-    msg = cl.Message(response)
+    await LLMCompilerAgent._image_agent.process(
+        SOLUTION_ONE_PROMPT, ImageAnalysisAction.SOLUTION_ONE)
+    
 
-    await msg.send()
-
-  @cl.action_callback(SOLUTION_TWO)
+  @cl.action_callback(ImageAnalysisAction.SOLUTION_TWO.value)
   async def on_action(action: cl.Action):
-    response = await LLMCompilerAgent._image_agent.process(
-        SOLUTION_TWO_PROMPT)
-    msg = cl.Message(response)
-
-    await msg.send()
-
-  @cl.action_callback(SOLUTION_THREE)
+    await LLMCompilerAgent._image_agent.process(
+        SOLUTION_TWO_PROMPT, ImageAnalysisAction.SOLUTION_TWO)
+    
+  @cl.action_callback(ImageAnalysisAction.SOLUTION_THREE.value)
   async def on_action(action: cl.Action):
-    response = await LLMCompilerAgent._image_agent.process(
-        SOLUTION_THREE_PROMPT)
-    msg = cl.Message(response)
+    await LLMCompilerAgent._image_agent.process(
+        SOLUTION_THREE_PROMPT, ImageAnalysisAction.SOLUTION_THREE)
+    
 
-    await msg.send()
-
-  @cl.action_callback(SOLUTION_FOUR)
+  @cl.action_callback(ImageAnalysisAction.SOLUTION_FOUR.value)
   async def on_action(action: cl.Action):
-    response = await LLMCompilerAgent._image_agent.process(
-        SOLUTION_FOUR_PROMPT)
-    msg = cl.Message(response)
+    await LLMCompilerAgent._image_agent.process(
+        SOLUTION_FOUR_PROMPT, ImageAnalysisAction.SOLUTION_THREE)
 
-    await msg.send()
-
-  @cl.action_callback(SOLUTION_FIVE)
+  @cl.action_callback(ImageAnalysisAction.SOLUTION_FIVE.value)
   async def on_action(action: cl.Action):
-    response = await LLMCompilerAgent._image_agent.process(
-        SOLUTION_FIVE_PROMPT)
-    msg = cl.Message(response)
-    await msg.send()
+    await LLMCompilerAgent._image_agent.process(
+        SOLUTION_FIVE_PROMPT, ImageAnalysisAction.SOLUTION_FIVE)
+    
+  @cl.action_callback(ImageAnalysisAction.ANALYZE_NEW.value)
+  async def on_action(action: cl.Action):
+    await LLMCompilerAgent._ask_file_handler()
+    await LLMCompilerAgent._load_action_menu()
+
