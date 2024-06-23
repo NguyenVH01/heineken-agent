@@ -31,17 +31,17 @@ def load_model():
   if LLM_PROVIDER == "gemini":
     logging.info(f"Loading Gemini Model: {MODEL_ID}")
     generation_config = {
-        "temperature": 0.8,
+        "temperature": TEMPERATURE,
         "top_p": 0.95,
         "top_k": 64,
         "max_output_tokens": 8192,
         "response_mime_type": "text/plain",
     }
+    llm = load_baseline_llm()
+    # genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-    genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-
-    return genai.GenerativeModel(model_name=MODEL_ID, generation_config=generation_config,
-                                 )
+    return llm.GenerativeModel(model_name=MODEL_ID, generation_config=generation_config,
+                               )
   else:
     raise NotImplementedError(
         "The implementation for other types of LLMs are not ready yet!")

@@ -7,7 +7,7 @@ MODEL_ID = "gemini-1.5-flash"
 
 # LLM_PROVIDER="openai"
 # MODEL_ID = "gpt-4o"
-TEMPERATURE = 0.2
+TEMPERATURE = 0.8
 MAX_ITERATIONS = 30
 # Agent Settings
 AGENT_TYPE = "LLMCompilerAgent"
