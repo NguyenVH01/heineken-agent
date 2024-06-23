@@ -1,0 +1,144 @@
+from typing import List
+import chainlit as cl
+import pandas as pd
+from llama_index.core.agent import AgentRunner, ReActAgent
+from llama_index.core.base.llms.types import ChatMessage, MessageRole
+from dotenv import load_dotenv
+from src.agents.image_agent.image_agent_tool import ImageAgent
+from src.agents.base import BaseChainlitAgent
+from src.utils.llm_utils import load_model
+from .prompts import WELCOME_MESSAGE, BASE_SYSTEM_PROMPT, SYSTEM_PROMPT
+from src.const import SOLUTION_ONE, SOLUTION_TWO, SOLUTION_THREE, SOLUTION_FOUR, SOLUTION_FIVE
+from src.agents.image_agent.prompt import SOLUTION_ONE_PROMPT, SOLUTION_TWO_PROMPT, SOLUTION_THREE_PROMPT, SOLUTION_FOUR_PROMPT, SOLUTION_FIVE_PROMPT
+
+load_dotenv(override=True)
+
+class LLMCompilerAgent(BaseChainlitAgent):
+
+  _agent: AgentRunner
+  _image_path: str
+  _AGENT_IDENTIFIER: str = "LLMAnalyzerAgent"
+  _HISTORY_IDENTIFIER: str = f"{_AGENT_IDENTIFIER}_chat_history"
+  _image_agent: ImageAgent
+
+  # @staticmethod
+  # def _get_chat_history() -> list[dict]:
+  #   chat_history = cl.user_session.get(
+  #       key=LLMCompilerAgent._HISTORY_IDENTIFIER, default=[])
+  #   return chat_history
+
+  # @staticmethod
+  # def _set_chat_history(chat_history: list[dict]) -> None:
+  #   cl.user_session.set(
+  #       key=LLMCompilerAgent._HISTORY_IDENTIFIER, value=chat_history)
+
+  # @classmethod
+  # def _construct_message_history(self, message_history: List[dict] = None) -> List[ChatMessage]:
+  #   self._agent.memory.reset()
+  #   memory = [
+  #       ChatMessage(content=BASE_SYSTEM_PROMPT, role=MessageRole.SYSTEM),
+  #       ChatMessage(content=SYSTEM_PROMPT, role=MessageRole.SYSTEM),
+  #   ]
+
+  #   if message_history:
+  #     memory.extend([ChatMessage(**message) for message in message_history])
+
+  #   self._agent.memory.set(messages=memory)
+  #   return memory
+
+  # @classmethod
+  # def _init_tools(cls):
+  #   from src.tools.image_tool import load_image_tool
+  #   return load_image_tool(path=LLMCompilerAgent._image_path)
+
+  @classmethod
+  async def _ask_file_handler(cls):
+    files = None
+
+    # Wait for the user to upload a file
+    while files == None:
+      files = await cl.AskFileMessage(
+          content=WELCOME_MESSAGE,
+          accept={'image/jpeg': ['.jpeg', '.png']},
+          max_size_mb=25
+      ).send()
+
+    image = files[0]
+    LLMCompilerAgent._image_path = image.path
+    image = cl.Image(path=image.path, name="image", display="inline")
+
+    await cl.Message(f"File uploaded successfully! Ask anything about the data!", elements=[image]).send()
+    return image.path
+
+  @classmethod
+  async def aon_start(cls, *args, **kwargs):
+    # LLMCompilerAgent._set_chat_history([])\
+    await LLMCompilerAgent._ask_file_handler()
+    llm = load_model()
+    LLMCompilerAgent._image_agent = ImageAgent(llm=llm)
+    actions = [
+        cl.Action(name=SOLUTION_ONE, value="solution1",
+                  description="Vấn đề kinh doanh 1"),
+        cl.Action(name=SOLUTION_TWO, value="solution2",
+                  description="Vấn đề kinh doanh 2"),
+        cl.Action(name=SOLUTION_THREE, value="solution3",
+                  description="Vấn đề kinh doanh 3"),
+        cl.Action(name=SOLUTION_FOUR, value="solution4",
+                  description="Vấn đề kinh doanh 4"),
+        cl.Action(name=SOLUTION_FIVE, value="solution5",
+                  description="Vấn đề kinh doanh 5"),
+    ]
+
+    await cl.Message(content="Hãy chọn các vấn đề bạn muốn phân tích:", actions=actions).send()
+    # tools = LLMCompilerAgent._init_tools()
+    # agent = ReActAgent.from_tools(
+    #     tools, llm=llm, verbose=True, max_iterations=MAX_ITERATIONS
+    # )
+    # LLMCompilerAgent._agent = agent
+    # cl.user_session.set(LLMCompilerAgent._AGENT_IDENTIFIER, agent)
+
+  @classmethod
+  async def aon_message(cls, message: cl.Message, *args, **kwargs):
+    response = LLMCompilerAgent._image_agent.process(message.content)
+    msg = cl.Message(response)
+
+    await msg.send()
+
+  @cl.action_callback(SOLUTION_ONE)
+  async def on_action(action: cl.Action):
+    response = await LLMCompilerAgent._image_agent.process(
+        SOLUTION_ONE_PROMPT)
+    msg = cl.Message(response)
+
+    await msg.send()
+
+  @cl.action_callback(SOLUTION_TWO)
+  async def on_action(action: cl.Action):
+    response = await LLMCompilerAgent._image_agent.process(
+        SOLUTION_TWO_PROMPT)
+    msg = cl.Message(response)
+
+    await msg.send()
+
+  @cl.action_callback(SOLUTION_THREE)
+  async def on_action(action: cl.Action):
+    response = await LLMCompilerAgent._image_agent.process(
+        SOLUTION_THREE_PROMPT)
+    msg = cl.Message(response)
+
+    await msg.send()
+
+  @cl.action_callback(SOLUTION_FOUR)
+  async def on_action(action: cl.Action):
+    response = await LLMCompilerAgent._image_agent.process(
+        SOLUTION_FOUR_PROMPT)
+    msg = cl.Message(response)
+
+    await msg.send()
+
+  @cl.action_callback(SOLUTION_FIVE)
+  async def on_action(action: cl.Action):
+    response = await LLMCompilerAgent._image_agent.process(
+        SOLUTION_FIVE_PROMPT)
+    msg = cl.Message(response)
+    await msg.send()
