@@ -1,7 +1,7 @@
 **1. Clone the repository:**
 ```bash
 git clone https://github.com/NguyenVH01/heineken-agent.git
-cd AngelHack
+cd heineken-agent
 ```
 
 **2. (Optional) Create and activate a virtual environment:**
