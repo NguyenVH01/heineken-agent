@@ -128,7 +128,7 @@ class LLMCompilerAgent(BaseChainlitAgent):
   @cl.action_callback(ImageAnalysisAction.SOLUTION_FOUR.value)
   async def on_action(action: cl.Action):
     await LLMCompilerAgent._image_agent.process(
-        SOLUTION_FOUR_PROMPT, ImageAnalysisAction.SOLUTION_THREE)
+        SOLUTION_FOUR_PROMPT, ImageAnalysisAction.SOLUTION_FOUR)
 
   @cl.action_callback(ImageAnalysisAction.SOLUTION_FIVE.value)
   async def on_action(action: cl.Action):
