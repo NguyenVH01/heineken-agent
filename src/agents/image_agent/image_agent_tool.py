@@ -2,10 +2,11 @@ from PIL import Image
 from src.agents.image_agent.const import ImageAnalysisAction
 import chainlit as cl
 import json
-import random
-import io
 from PIL import Image, ImageDraw
 from PIL import ImageColor
+import numpy as np
+import io
+from src.agents.image_agent.prompt import OBJECT_DETECTION_PROMPT
 
 class ImageAgent:
   def __init__(self, llm):
@@ -13,6 +14,47 @@ class ImageAgent:
     self._llm = llm
     self._image_path = LLMCompilerAgent._image_path
     self._additional_colors = [colorname for (colorname, colorcode) in ImageColor.colormap.items()]
+    self.bbox_str = None
+    self.bbox_hist = ''
+
+  # @title Parsing utils
+  def parse_list_boxes(self, text):
+    result = []
+    for line in text.strip().splitlines():
+      # Extract the numbers from the line, remove brackets and split by comma
+      try:
+        numbers = line.split('[')[1].split(']')[0].split(',')
+      except:
+        numbers =  line.split('- ')[1].split(',')
+
+      # Convert the numbers to integers and append to the result
+      result.append([int(num.strip()) for num in numbers])
+
+    return result
+
+  def parse_list_boxes_with_label(self, text):
+    text = text.split("```\n")[0]
+    return json.loads(text.strip("```").strip("python").strip("json").replace("'", '"').replace('\n', '').replace(',}', '}'))
+
+  def postproc_bbox_str(self, height, width):
+    x0, y0, x1, y1 = [float(x) for x in self.bbox_str.removeprefix('[').removesuffix(']').split(',')]
+    x0 = int(np.round(x0 / width * 1000))
+    y0 = int(np.round(y0 / height * 1000))
+    x1 = int(np.round(x1 / width * 1000))
+    y1 = int(np.round(y1 / height * 1000))
+    return f'{y0} {x0} {y1} {x1}'
+
+  def postproc_bbox_hist(self, height, width):
+    bbox_strs = self.bbox_hist.rstrip().split("\n")
+    results = []
+    for bbox_str in bbox_strs:
+      x0, y0, x1, y1 = [float(x) for x in bbox_str.removeprefix('[').removesuffix(']').split(',')]
+      x0 = int(np.round(x0 / width * 1000))
+      y0 = int(np.round(y0 / height * 1000))
+      x1 = int(np.round(x1 / width * 1000))
+      y1 = int(np.round(y1 / height * 1000))
+      results.append(f" (x = {(x0 + x1) // 2}, y = {(y0 + y1)//2}); ")
+    return results
 
   def plot_bounding_boxes(self, noun_phrases_and_positions):
     """
@@ -56,7 +98,7 @@ class ImageAgent:
     'violet',
     'gold',
     'silver',
-    ] + additional_colors
+    ] + self._additional_colors
 
     # Iterate over the noun phrases and their positions
     for i, (noun_phrase, (y1, x1, y2, x2)) in enumerate(
@@ -72,25 +114,37 @@ class ImageAgent:
 
         # Draw the bounding box
         draw.rectangle(
-            ((abs_x1, abs_y1), (abs_x2, abs_y2)), outline=color, width=4
+            ((abs_x1, abs_y1), (abs_x2, abs_y2)), outline=color, width=8
         )
 
         # Draw the text
         draw.text((abs_x1 + 8, abs_y1 + 6), noun_phrase, fill=color)
 
     # Return the image
-    return img
+    
+    return self.image_to_byte_array(img)
+  
+  def image_to_byte_array(self, image:Image):
+    image_bytes = io.BytesIO()
+    image.save(image_bytes, format=image.format)
+    image_bytes = image_bytes.getvalue()
+    return image_bytes
 
   def read_image(self):
     image = Image.open(self._image_path)
     return image
   
-  # async def object_detection(self):
-  #   pass
+  async def object_detection(self, image):
+    response = self._llm.generate_content([OBJECT_DETECTION_PROMPT, image])
+    boxes = self.parse_list_boxes_with_label(response.text)
+    detection_img = self.plot_bounding_boxes(noun_phrases_and_positions=list(boxes.items()))
+    
+    image = cl.Image(content=detection_img, name="image", display="inline")
+    await cl.Message(f"> ## Kết quả nhận diện bia:", elements=[image]).send()
+
 
   async def process(self, prompt, action: ImageAnalysisAction):
     image = self.read_image()
-    # if action.value == ImageAnalysisAction.SOLUTION_ONE.value:
 
     response = self._llm.generate_content([prompt, image])
 
@@ -107,6 +161,8 @@ class ImageAgent:
     
 
     await message.send()
+    if action.value == ImageAnalysisAction.SOLUTION_ONE.value:
+      await self.object_detection(image)
     await self.show_action_buttons()
   
   async def show_action_buttons(self):

@@ -52,3 +52,16 @@ Báo cáo kết quả: Hãy tổng hợp kết quả phân tích của bạn và
 Số lượng và loại hình quảng cáo của Heineken (bao gồm Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss, và Strongbow) như biển quảng cáo, standee, thùng bia.
 Đánh giá mức độ tuân thủ của mỗi cửa hàng so với yêu cầu tối thiểu đã đề ra.
 """
+
+OBJECT_DETECTION_PROMPT = """
+Bạn là một chuyên gia phân tích thông tin hình ảnh, có khả năng phân biệt và đánh giá hình ảnh dựa trên tiêu chí cụ thể. CHÚ Ý các thương hiệu Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow. Và tôi có đội ngũ phân tích bộ nhận dạng thương hiệu logo cung cấp dữ liệu nhận dạng như sau: "
+Bia Việt: Logo gồm một con chim én trắng bay về phía bên phải, tạo hình ngôi sao vàng, và chữ "BIA VIET" màu đen đậm trên nền đỏ.
+Bivinia: Logo là một vòng tròn trắng có viền đỏ, bên trong có chữ "BIVINIA" màu đen, được tô viền màu trắng, chữ "LAGER BEER" màu đen nằm ở phía dưới. Phía trên vòng tròn là dòng chữ "TRADE MARK" màu đen với một ngôi sao vàng ở giữa. Vòng tròn được bao quanh bởi hai bông lúa mì vàng.
+Edelweiss: Logo bao gồm một bông hoa Edelweiss, được bao quanh bởi dòng chữ "BORN IN THE ALPS 1846", bên dưới là dòng chữ "Edelweiss" được in theo kiểu chữ Gothic.
+Heineken: Logo Heineken bao gồm một ngôi sao đỏ năm cánh, bên dưới là dòng chữ "EST. 1873", và chữ "Heineken" được in đậm. Bên phải chữ "Heineken" là một vòng tròn chứa chữ "R".
+Larue: Logo có hình đầu hổ với màu cam và vàng, với đôi mắt xanh dương và chiếc mũi đen, trên nền đen. Dưới đầu hổ là một dải băng màu xanh lá cây với dòng chữ "LARUE" màu vàng, bên dưới là dòng chữ "SPECIAL" màu trắng và hình ảnh hai bông lúa mì màu vàng.
+Strongbow: Logo có chữ strongbow
+Tiger: Logo có hình một con hổ màu vàng với sọc màu nâu, đang ngồi với tư thế uy nghi. Bên dưới là dòng chữ "Tiger"
+"
+Bạn hãy xác định các lon bia/chai bia có trong ảnh và trả về kết quả các định dạng như sau: {'object_0' : [ymin, xmin, ymax, xmax], ...}  Nếu có nhiều hơn một phiên bản của một đối tượng, hãy thêm chúng vào từ điển dưới dạng 'object_0', 'object_1', v.v.
+"""

@@ -42,3 +42,6 @@ charts/*
 __pycache__/*
 
 .files/*
+__pycache__/
+*.pyc
+.env.example
