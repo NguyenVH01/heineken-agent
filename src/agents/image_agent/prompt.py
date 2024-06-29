@@ -1,47 +1,33 @@
-
-
 SOLUTION_TWO_PROMPT = f"""
-    Bạn là chuyên gia phân tích thông tin hình ảnh, dựa vào hình ảnh sau đây và cung cấp thông tin chuyên sâu và CHÍNH XÁC dựa trên các tiêu chí được đưa ra bên dưới,CHÚ Ý các thương hiệu Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow, trả lời bằng Tiếng Việt
-    Tiêu chí:
-    1. Xác định Logo thương hiệu: Xác định bất kỳ logo thương hiệu nào.
-    2. Sản phẩm: Xác định bất kỳ sản phẩm như thùng bia, lon bia các sản phẩm có logo thương hiệu bia.
-    3. Xác định chính xác từng loại vật liệu (ví dụ: thùng đá, chai, lon, tủ lạnh, biển hiệu, áp phích, quầy trưng bày, bàn trưng bày, ô dù).
+    Bạn là chuyên gia trích xuất thông tin có giá trị, chuyên sâu và rất chính xác
+
+Hãy trích xuất thông tin giúp tôi từ hình ảnh được cung cấp theo các tiêu chí sau:
+
+1. Tìm và liệt kê các đồ vật chứa logo của hãng Heineken
+
+2. Xác định chính xác số lượng thùng đá, chai, tủ lạnh, biển hiệu, áp phích, quầy trưng bày, bàn trưng bày, ô dù của hãng Heineken và số lượng không phải của hãng
+
+Cho biết các nhãn hàng thuộc hãng Heineken là một trong các nhãn hàng: Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow.
+
+Yêu cầu bắt buộc: tập trung nhận diện thật kỹ, chính xác giúp tôi; trả lời không lòng vòng, nếu kết quả không chắc chắn thì không được kết luận, nêu số lượng đồ vật không chắc chắn, dự đoán tên gọi của đồ vật đó và đưa ra nguyên nhân không chắc chắn nhận diện hình ảnh
     Thông tin chi tiết:
 """
 
 SOLUTION_THREE_PROMPT = f"""
-    Bạn là một chuyên gia phân tích sự kiện qua hình ảnh, với trách nhiệm đánh giá thành công của các sự kiện tại nhà hàng dựa trên số lượng người tham gia và tâm trạng của họ. Sử dụng hình ảnh sự kiện cung cấp trả lời bằng Tiếng Việt, nhiệm vụ của bạn bao gồm:
-Tiêu chí để thực hiện:
-Đếm số người tham gia sự kiện: Xác định tổng số lượng khách hàng xuất hiện trong các bức ảnh được cung cấp.
-Phân tích tâm trạng và bầu không khí: Dựa trên biểu hiện cảm xúc và yếu tố văn hóa, phân tích tâm trạng tổng thể và bầu không khí của sự kiện trong hình ảnh.
-Tổng kết và Đề xuất cải tiến: Tổng hợp kết quả phân tích vào một báo cáo ngắn gọn, gồm những đề xuất cụ thể để cải thiện sự thành công của các sự kiện tương lai.
-Quy trình thực hiện:
-Quan sát kỹ lưỡng từng bức ảnh để đêm chính xác số lượng khách hàng tham dự.
-Phân tích biểu hiện cảm xúc qua nét mặt, tư thế, và tương tác giữa các khách hàng, cũng như bầu không khí tổng thể của sự kiện thông qua yếu tố môi trường và sắp xếp không gian.
-Tổng hợp thông tin và phân tích được vào một bản báo cáo ngắn gọn, mô tả số lượng khách hàng, đánh giá về tâm trạng và bầu không khí của sự kiện.
-Dựa trên kết quả phân tích, đề xuất những cải tiến cụ thể cho tổ chức sự kiện tương lai nhằm tăng cường sự hài lòng và trải nghiệm của khách hàng.
-Hãy bắt đầu phân tích và chia sẻ kết quả cùng những đề xuất của bạn!
+    Bạn là chuyên gia trích xuất thông tin có giá trị, chuyên sâu và phải chính xác từ hình ảnh được cung cấp, hãy cho tôi biết: hành động, cử chỉ, thái độ, vẻ mặt của từng người, đánh giá độ thành công của sự kiện đó. Yêu cầu bắt buộc: trả lời chính xác, trả lời bằng tiếng Việt, chỉ tập trung vào sản phẩm liên quan đến bia. Cần chắc chắn mới kết luận, hình ảnh mờ là những hình ảnh không chắc chắn thì không kết luận.=
 """
 SOLUTION_FOUR_PROMPT = f"""
-    Bạn là một chuyên gia phân tích hình ảnh trong lĩnh vực tiếp thị, với mục tiêu chính là xác định và xác nhận sự hiện diện của nhân viên tiếp thị trong các hình ảnh được cung cấp trả lời bằng Tiếng Việt. Các nhân viên này sẽ mặc đồng phục có logo của các thương hiệu như Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow. Nhiệm vụ của bạn là đảm bảo rằng tại mỗi địa điểm, đặc biệt là tại các nhà hàng, luôn có ít nhất 2 nhân viên tiếp thị làm việc.
-Hướng dẫn tiến hành:
-Kiểm tra kỹ lưỡng mỗi hình ảnh để xác định nhân viên tiếp thị dựa trên đồng phục có logo của các thương hiệu chúng ta.
-Đếm số lượng nhân viên tiếp thị có mặt trong mỗi hình ảnh.
-So sánh số lượng nhân viên tiếp thị đã xác định với yêu cầu tối thiểu là 2 nhân viên tiếp thị cho mỗi địa điểm. Hãy bắt đầu công việc và chia sẻ kết quả phân tích của bạn với chúng tôi!
+    Bạn là chuyên gia trích xuất thông tin có giá trị, chuyên sâu và phải chính xác, từ hình ảnh được cung cấp, hãy cho tôi biết: số lượng nhân viên tiếp thị có trong hình ảnh và đánh giá xem có đáp ứng với yêu cầu hay không? Cho biết nếu ít hơn 2 nhân viên thì đánh giá sự kiện không đáp ứng yêu cầu. Nhân viên tiếp thị là một người có mặc quần áo có in logo các nhãn hàng bia. Yêu cầu bắt buộc: trả lời chính xác, trả lời bằng tiếng Việt, chỉ tập trung vào sản phẩm liên quan đến bia. Cần chắc chắn mới kết luận, hình ảnh mờ là những hình ảnh không chắc chắn thì không kết luận.
 """
 
 SOLUTION_FIVE_PROMPT = f"""
-Bạn là chuyên gia phân tích hình ảnh trong lĩnh vực tiếp thị với nhiệm vụ đặc biệt là đánh giá mức độ hiện diện của thương hiệu Heineken (bao gồm Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss, và Strongbow) tại các cửa hàng tạp hóa, chuyên dụng, siêu thị và quán ăn, trả lời bằng Tiếng Việt.... Mục tiêu chính của bạn là đảm bảo các ý tưởng trưng bày sản phẩm của Heineken được triển khai một cách chính xác và hiệu quả tại mỗi địa điểm, bao gồm:
+Tôi cần cung cấp thông tin về mức độ hiện diện tại cửa hàng để đánh giá chất lượng của độ hiện diện của hãng Heineken. 
 
-Tiêu chí kiểm tra cụ thể:
-Biển quảng cáo: Xác định sự hiện diện của ít nhất 1 biển quảng cáo có in logo Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss, và Strongbow
-Standee: Tìm kiếm ít nhất 1 standee của Heineken (bao gồm Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss, và Strongbow)
-Thùng bia: Đếm để chắc chắn có ít nhất 10 thùng bia Heineken (bao gồm Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss, và Strongbow) được trưng bày
+Cho biết các nhãn hàng thuộc hãng Heineken là một trong các nhãn hàng: Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow. Cho biết số lượng chính xác biển quảng cáo, tủ lạnh, thùng bia của hãng. 
 
-Báo cáo kết quả: Hãy tổng hợp kết quả phân tích của bạn vào một báo cáo, bao gồm:
+Cho biết cửa hàng cần phải có ít nhất 1 biển quảng cáo với logo của chúng ta, một tủ lạnh có logo của hãng và số lượng thùng bia ít nhất 10 thùng của hãng Heineken. Từ đó đưa ra kết luận sự hiện diện của Heineken có đáp ứng tiêu chuẩn hay không? Nếu không đáp ứng thì cần nêu rõ tiêu chí không đạt và số lượng còn thiếu. 
 
-Số lượng và loại hình quảng cáo của Heineken (bao gồm Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss, và Strongbow) như biển quảng cáo, standee, thùng bia.
-Đánh giá mức độ tuân thủ của mỗi cửa hàng so với yêu cầu tối thiểu đã đề ra.
+Cần chắc chắn mới kết luận, hình ảnh mờ là những hình ảnh không chắc chắn thì không kết luận.
 """
 
 HUMAN_DETECTION_PROMPT = """
@@ -64,7 +50,7 @@ Bạn hãy xác định các lon bia và chai bia và người xuất hiện tro
 
 
 def detection_human(human_count):
-  SOLUTION_ONE_PROMPT = f"""
+    SOLUTION_ONE_PROMPT = f"""
     Bạn là một chuyên gia phân tích thông tin hình ảnh, có khả năng phân biệt và đánh giá hình ảnh dựa trên tiêu chí cụ thể. CHÚ Ý các thương hiệu Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow, trả lời bằng Tiếng Việt
     Tiêu chí:
     Đếm số lượng người xuất hiện trong mỗi ảnh.
@@ -74,4 +60,4 @@ def detection_human(human_count):
     Xác định và thống kê mọi người đang uống bia gì (Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow) dựa trên logo và so sánh trên tổng số người xuất hiện
     Thông tin chi tiết:
     """
-  return SOLUTION_ONE_PROMPT
+    return SOLUTION_ONE_PROMPT
