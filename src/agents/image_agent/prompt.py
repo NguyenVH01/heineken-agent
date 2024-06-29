@@ -1,13 +1,4 @@
-SOLUTION_ONE_PROMPT = f"""
-Bạn là một chuyên gia phân tích thông tin hình ảnh, có khả năng phân biệt và đánh giá hình ảnh dựa trên tiêu chí cụ thể. CHÚ Ý các thương hiệu Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow, trả lời bằng Tiếng Việt
-Tiêu chí:
-Đếm số lượng người xuất hiện trong mỗi ảnh.
-Xác định và thông báo số lượng người đang uống các loại bia của Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow một cách chính xác dựa trên vật phẩm (lon/chai/ly) của người uống đang để trước mặt hoặc đang cầm, không tính vật trưng bày.
-Quy trình:
-Đếm số lượng người xuất hiện trong mỗi ảnh.
-Xác định và thống kê mọi người đang uống bia gì (Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow) dựa trên logo và so sánh trên tổng số người xuất hiện
-Thông tin chi tiết:
-"""
+
 
 SOLUTION_TWO_PROMPT = f"""
     Bạn là chuyên gia phân tích thông tin hình ảnh, dựa vào hình ảnh sau đây và cung cấp thông tin chuyên sâu và CHÍNH XÁC dựa trên các tiêu chí được đưa ra bên dưới,CHÚ Ý các thương hiệu Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow, trả lời bằng Tiếng Việt
@@ -53,6 +44,11 @@ Số lượng và loại hình quảng cáo của Heineken (bao gồm Heineken, 
 Đánh giá mức độ tuân thủ của mỗi cửa hàng so với yêu cầu tối thiểu đã đề ra.
 """
 
+HUMAN_DETECTION_PROMPT = """
+Bạn là một chuyên gia phân tích thông tin hình ảnh, có khả năng phân biệt và đánh giá hình ảnh dựa trên tiêu chí cụ thể. 
+Bạn hãy xác định người xuất hiện trong ảnh và trả về kết quả các định dạng như sau: {'object_0' : [ymin, xmin, ymax, xmax], ...}  Nếu có nhiều hơn một phiên bản của một đối tượng, hãy thêm chúng vào từ điển dưới dạng 'object_0', 'object_1', v.v. Nếu không tìm thấy không trả ra kết quả
+"""
+
 OBJECT_DETECTION_PROMPT = """
 Bạn là một chuyên gia phân tích thông tin hình ảnh, có khả năng phân biệt và đánh giá hình ảnh dựa trên tiêu chí cụ thể. CHÚ Ý các thương hiệu Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow. Và tôi có đội ngũ phân tích bộ nhận dạng thương hiệu logo cung cấp dữ liệu nhận dạng như sau: "
 Bia Việt: Logo gồm một con chim én trắng bay về phía bên phải, tạo hình ngôi sao vàng, và chữ "BIA VIET" màu đen đậm trên nền đỏ.
@@ -63,5 +59,19 @@ Larue: Logo có hình đầu hổ với màu cam và vàng, với đôi mắt xa
 Strongbow: Logo có chữ strongbow
 Tiger: Logo có hình một con hổ màu vàng với sọc màu nâu, đang ngồi với tư thế uy nghi. Bên dưới là dòng chữ "Tiger"
 "
-Bạn hãy xác định các lon bia/chai bia có trong ảnh và trả về kết quả các định dạng như sau: {'object_0' : [ymin, xmin, ymax, xmax], ...}  Nếu có nhiều hơn một phiên bản của một đối tượng, hãy thêm chúng vào từ điển dưới dạng 'object_0', 'object_1', v.v.
+Bạn hãy xác định các lon bia và chai bia và người xuất hiện trong ảnh và trả về kết quả các định dạng như sau: {'object_0' : [ymin, xmin, ymax, xmax], ...}  Nếu có nhiều hơn một phiên bản của một đối tượng, hãy thêm chúng vào từ điển dưới dạng 'object_0', 'object_1', v.v. Nếu không có chai bia hoặc lon bia thì không trả ra kết quả
 """
+
+
+def detection_human(human_count):
+  SOLUTION_ONE_PROMPT = f"""
+    Bạn là một chuyên gia phân tích thông tin hình ảnh, có khả năng phân biệt và đánh giá hình ảnh dựa trên tiêu chí cụ thể. CHÚ Ý các thương hiệu Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow, trả lời bằng Tiếng Việt
+    Tiêu chí:
+    Đếm số lượng người xuất hiện trong mỗi ảnh.
+    Xác định và thông báo số lượng người đang uống các loại bia của Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow một cách chính xác dựa trên vật phẩm (lon/chai/ly) của người uống đang để trước mặt hoặc đang cầm, không tính vật trưng bày. Và tôi có đội ngũ phân tích hình ảnh cho kết quả trong ảnh này có : {human_count} người
+    Quy trình:
+    Đếm số lượng người xuất hiện trong mỗi ảnh.
+    Xác định và thống kê mọi người đang uống bia gì (Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow) dựa trên logo và so sánh trên tổng số người xuất hiện
+    Thông tin chi tiết:
+    """
+  return SOLUTION_ONE_PROMPT
