@@ -55,19 +55,19 @@ class LLMCompilerAgent(BaseChainlitAgent):
   async def _load_action_menu(cls):
     actions = [
         cl.Action(name=ImageAnalysisAction.SOLUTION_ONE.value, value="solution1",
-                  description="Vấn đề kinh doanh 1"),
+                  description="Business problem solving 1"),
         cl.Action(name=ImageAnalysisAction.SOLUTION_TWO.value, value="solution2",
-                  description="Vấn đề kinh doanh 2"),
+                  description="Business problem solving 2"),
         cl.Action(name=ImageAnalysisAction.SOLUTION_THREE.value, value="solution3",
-                  description="Vấn đề kinh doanh 3"),
+                  description="Business problem solving 3"),
         cl.Action(name=ImageAnalysisAction.SOLUTION_FOUR.value, value="solution4",
-                  description="Vấn đề kinh doanh 4"),
+                  description="Business problem solving 4"),
         cl.Action(name=ImageAnalysisAction.SOLUTION_FIVE.value, value="solution5",
-                  description="Vấn đề kinh doanh 5"),
+                  description="Business problem solving 5"),
         cl.Action(name=ImageAnalysisAction.ANALYZE_NEW.value, value="analyze_new",
-                  description="Phân tích hình ảnh mới"),
+                  description="Analyze new image"),
     ]
-    await cl.Message(content="Hãy chọn các vấn đề bạn muốn phân tích:", actions=actions).send()
+    await cl.Message(content="Please choose your solution to analyze:", actions=actions).send()
 
   @classmethod
   async def _ask_file_handler(cls):
