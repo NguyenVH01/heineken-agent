@@ -1,8 +1,8 @@
 WELCOME_MESSAGE = """
-Chào mừng bạn đến với Trình phân tích hình ảnh với Mô hình LLM!
-Vui lòng bắt đầu bằng cách tải ảnh của bạn lên để bắt đầu phân tích. Hệ thống tiên tiến của chúng tôi sẽ giúp bạn hiểu rõ hơn về ảnh của mình một cách nhanh chóng và hiệu quả. Sau khi ảnh của bạn được tải lên, bạn có thể chọn từ nhiều tùy chọn phân tích phù hợp với nhu cầu của mình.
+Welcome to Image Analyzer with LLM Models!
+Please start by uploading your photo to begin analysis. Our advanced system will help you better understand the quick and effective use of images. After uploading your images, you can choose from several analytics options that suit your needs.
 
-Vui lòng tải lên một tập tin ảnh để bắt đầu!
+Please upload an image file to get started!
 """
 
 BASE_SYSTEM_PROMPT = "You are a chatbot develop by AIO_Tech Venture from AIVN team"

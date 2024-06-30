@@ -147,7 +147,7 @@ class ImageAgent:
         noun_phrases_and_positions=list(boxes.items()))
 
     image = cl.Image(content=detection_img, name="image", display="inline")
-    await cl.Message(f"> ## Kết quả nhận diện người:", elements=[image]).send()
+    await cl.Message(f"> ## Evaluate human detection:", elements=[image]).send()
 
     return len(boxes.keys())
 
@@ -162,7 +162,7 @@ class ImageAgent:
     response = self._llm.generate_content([prompt, image])
 
     result = f"""
-      > ## Kết quả {action.value}:
+      > ## Evaluate {action.value}:
 {response.text}
     """
     print(result)

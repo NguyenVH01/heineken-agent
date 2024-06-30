@@ -56,7 +56,7 @@ def detection_human(human_count):
   Đếm số lượng người xuất hiện trong mỗi ảnh. Và tôi có đội ngũ phân tích hình ảnh cho kết quả trong ảnh này có : {human_count} người
   Quy trình:
   1. Đếm số lượng người xuất hiện trong mỗi ảnh.
-  2. Xác định có bao nhiêu người đang cầm chai bia hoặc ly bia ?
+  2.Xác định có bao nhiêu người đang cầm chai bia hoặc ly bia ?
   Thông tin chi tiết:
   """
   return SOLUTION_ONE_PROMPT
