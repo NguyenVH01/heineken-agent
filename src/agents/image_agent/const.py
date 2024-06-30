@@ -2,8 +2,8 @@ from enum import Enum
 
 class ImageAnalysisAction(Enum):
   SOLUTION_ONE = "Detect human and drinkers"
-  SOLUTION_TWO = "Phát hiện ấn phẩm quảng cáo"
-  SOLUTION_THREE = "Đánh giá độ thành công của sự kiện"
-  SOLUTION_FOUR = "Theo dõi nhân viên tiếp thị"
+  SOLUTION_TWO = "Detect print adversting"
+  SOLUTION_THREE = "Evaluate success event"
+  SOLUTION_FOUR = "Follow marketing staff"
   SOLUTION_FIVE = "Đánh giá mức độ hiện diện tại cửa hàng"
-  ANALYZE_NEW = "Phân tích hình ảnh mới"
+  ANALYZE_NEW = "Assess retail presence"
