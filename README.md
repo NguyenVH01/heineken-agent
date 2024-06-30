@@ -6,7 +6,7 @@ Our advanced system will help you better understand the quick and effective use 
 3. Evaluate success event
 4. Follow marketing staff
 5. Assess retail presence
-
+![Agent LLM](agent.png)
 
 **1. Clone the repository:**
 ```bash
