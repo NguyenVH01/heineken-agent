@@ -1,11 +1,11 @@
 ## Agent chatbot: Image Analyzer with LLM
 Welcome to Image Analyzer with LLM Models!
 Our advanced system will help you better understand the quick and effective use of images. After uploading your images, you can choose from several analytics options that suit your needs. These are 5 keypoints of this agent, otherwise you can ask agent to discover more insight of your image:
-    1. Detect human and drinker
-    2. Detect print adversting 
-    3. Evaluate success event
-    4. Follow marketing staff
-    5. Assess retail presence
+1. Detect human and drinker
+2. Detect print adversting 
+3. Evaluate success event
+4. Follow marketing staff
+5. Assess retail presence
 
 
 **1. Clone the repository:**
