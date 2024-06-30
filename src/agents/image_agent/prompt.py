@@ -51,12 +51,12 @@ Bạn hãy xác định các lon bia và chai bia và người xuất hiện tro
 
 def detection_human(human_count):
   SOLUTION_ONE_PROMPT = f"""
-  You are an expert in analyzing visual information, capable of distinguishing and evaluating images based on specific criteria. ATTENTION brands Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss and Strongbow, answer in English
+  You are an expert in analyzing visual information, capable of distinguishing and evaluating images based on specific criteria.
   Criteria:
-  Count the number of people appearing in each photo. And I have an image analysis team that gives results in this image: {human_count} people
+  Count the number of people appearing in each photo. And I have an image analysis team that gives results in this image: {human_count} people. If not met, it is necessary to clearly state the failure criteria and the missing quantity.
   Procedure:
   1. Count the number of people appearing in each photo.
-  2. Determine how many people drinking beer which holding beer bottles or beer glasses?
+  2. Determine how many people drinking beer whose holding beer bottles or beer glasses?
   Details:
   """
   return SOLUTION_ONE_PROMPT
