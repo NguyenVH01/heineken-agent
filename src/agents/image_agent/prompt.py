@@ -56,7 +56,7 @@ def detection_human(human_count):
   Count the number of people appearing in each photo. And I have an image analysis team that gives results in this image: {human_count} people
   Procedure:
   1. Count the number of people appearing in each photo.
-  2. Determine how many people are holding beer bottles or beer glasses?
+  2. Determine how many people drinking beer which holding beer bottles or beer glasses?
   Details:
   """
   return SOLUTION_ONE_PROMPT
