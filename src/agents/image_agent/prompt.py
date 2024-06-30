@@ -17,7 +17,7 @@ SOLUTION_THREE_PROMPT = f"""
     You are an expert in extracting valuable, in-depth, and accurate information from the provided images, please tell me: the actions, gestures, attitudes, and facial expressions of each person, and the assessment of the event's success. Requirements: answer correctly, and only focus on beer-related products. It would help if you were sure to conclude. Blurred images are uncertain images and cannot be concluded.
 """
 SOLUTION_FOUR_PROMPT = f"""
-    You are an expert in extracting valuable, in-depth, and accurate information, from the image provided, please tell me: the number of marketing staff in the image and evaluate whether it meets the requirements demand or not. Indicates that if there are fewer than 2 employees, the event assessment does not meet the requirements. A marketing staff is a person who wears clothes with beer brand logos printed on them. Mandatory requirements: answer correctly, and only focus on beer-related products. It would help if you were certain to conclude, that blurry images are uncertain images and are not conclusive.
+    You are an expert in extracting valuable, in-depth, and accurate information, from the image provided, please tell me: the number of marketing staff in the image and evaluate whether it meets the requirements demand or not. Indicates that the event that meets the requirement needs to be greater than or equal to 2 marketing staff. A marketing staff is a person who wears clothes with beer brand logos printed on them. Mandatory requirements: answer correctly, and only focus on beer-related products. It would help if you were certain to conclude, that blurry images are uncertain images and are not conclusive.
 """
 
 SOLUTION_FIVE_PROMPT = f"""
