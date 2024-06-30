@@ -5,5 +5,5 @@ class ImageAnalysisAction(Enum):
   SOLUTION_TWO = "Detect print adversting"
   SOLUTION_THREE = "Evaluate success event"
   SOLUTION_FOUR = "Follow marketing staff"
-  SOLUTION_FIVE = "Đánh giá mức độ hiện diện tại cửa hàng"
+  SOLUTION_FIVE = "Assess retail presence"
   ANALYZE_NEW = "Assess retail presence"

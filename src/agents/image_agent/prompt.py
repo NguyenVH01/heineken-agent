@@ -9,15 +9,15 @@ Hãy trích xuất thông tin giúp tôi từ hình ảnh được cung cấp th
 
 Cho biết các nhãn hàng thuộc hãng Heineken là một trong các nhãn hàng: Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow.
 
-Yêu cầu bắt buộc: tập trung nhận diện thật kỹ, chính xác giúp tôi; trả lời không lòng vòng, nếu kết quả không chắc chắn thì không được kết luận, nêu số lượng đồ vật không chắc chắn, dự đoán tên gọi của đồ vật đó và đưa ra nguyên nhân không chắc chắn nhận diện hình ảnh
+Yêu cầu bắt buộc: tập trung nhận diện thật kỹ, chính xác giúp tôi; trả lời không lòng vòng, nếu kết quả không chắc chắn thì không được kết luận, nêu số lượng đồ vật không chắc chắn, dự đoán tên gọi của đồ vật đó và đưa ra nguyên nhân không chắc chắn nhận diện hình ảnh, trả lời bằng Tiếng Anh
     Thông tin chi tiết:
 """
 
 SOLUTION_THREE_PROMPT = f"""
-    Bạn là chuyên gia trích xuất thông tin có giá trị, chuyên sâu và phải chính xác từ hình ảnh được cung cấp, hãy cho tôi biết: hành động, cử chỉ, thái độ, vẻ mặt của từng người, đánh giá độ thành công của sự kiện đó. Yêu cầu bắt buộc: trả lời chính xác, trả lời bằng tiếng Việt, chỉ tập trung vào sản phẩm liên quan đến bia. Cần chắc chắn mới kết luận, hình ảnh mờ là những hình ảnh không chắc chắn thì không kết luận.=
+    Bạn là chuyên gia trích xuất thông tin có giá trị, chuyên sâu và phải chính xác từ hình ảnh được cung cấp, hãy cho tôi biết: hành động, cử chỉ, thái độ, vẻ mặt của từng người, đánh giá độ thành công của sự kiện đó. Yêu cầu bắt buộc: trả lời chính xác, trả lời bằng tiếng Việt, chỉ tập trung vào sản phẩm liên quan đến bia. Cần chắc chắn mới kết luận, hình ảnh mờ là những hình ảnh không chắc chắn thì không kết luận, trả lời bằng Tiếng Anh
 """
 SOLUTION_FOUR_PROMPT = f"""
-    Bạn là chuyên gia trích xuất thông tin có giá trị, chuyên sâu và phải chính xác, từ hình ảnh được cung cấp, hãy cho tôi biết: số lượng nhân viên tiếp thị có trong hình ảnh và đánh giá xem có đáp ứng với yêu cầu hay không? Cho biết nếu ít hơn 2 nhân viên thì đánh giá sự kiện không đáp ứng yêu cầu. Nhân viên tiếp thị là một người có mặc quần áo có in logo các nhãn hàng bia. Yêu cầu bắt buộc: trả lời chính xác, trả lời bằng tiếng Việt, chỉ tập trung vào sản phẩm liên quan đến bia. Cần chắc chắn mới kết luận, hình ảnh mờ là những hình ảnh không chắc chắn thì không kết luận.
+    Bạn là chuyên gia trích xuất thông tin có giá trị, chuyên sâu và phải chính xác, từ hình ảnh được cung cấp, hãy cho tôi biết: số lượng nhân viên tiếp thị có trong hình ảnh và đánh giá xem có đáp ứng với yêu cầu hay không? Cho biết nếu ít hơn 2 nhân viên thì đánh giá sự kiện không đáp ứng yêu cầu. Nhân viên tiếp thị là một người có mặc quần áo có in logo các nhãn hàng bia. Yêu cầu bắt buộc: trả lời chính xác, trả lời bằng tiếng Việt, chỉ tập trung vào sản phẩm liên quan đến bia. Cần chắc chắn mới kết luận, hình ảnh mờ là những hình ảnh không chắc chắn thì không kết luận, trả lời bằng Tiếng Anh.
 """
 
 SOLUTION_FIVE_PROMPT = f"""
@@ -51,7 +51,7 @@ Bạn hãy xác định các lon bia và chai bia và người xuất hiện tro
 
 def detection_human(human_count):
   SOLUTION_ONE_PROMPT = f"""
-  Bạn là một chuyên gia phân tích thông tin hình ảnh, có khả năng phân biệt và đánh giá hình ảnh dựa trên tiêu chí cụ thể. CHÚ Ý các thương hiệu Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow, trả lời bằng Tiếng Việt
+  Bạn là một chuyên gia phân tích thông tin hình ảnh, có khả năng phân biệt và đánh giá hình ảnh dựa trên tiêu chí cụ thể. CHÚ Ý các thương hiệu Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow, trả lời bằng Tiếng Anh
   Tiêu chí:
   Đếm số lượng người xuất hiện trong mỗi ảnh. Và tôi có đội ngũ phân tích hình ảnh cho kết quả trong ảnh này có : {human_count} người
   Quy trình:
