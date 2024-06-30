@@ -13,7 +13,7 @@ dist/
 
 # Jupyter Notebook
 .ipynb_checkpoints
-
+*.env.example
 
 # Logs
 logs/
