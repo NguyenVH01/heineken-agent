@@ -1,33 +1,33 @@
 SOLUTION_TWO_PROMPT = f"""
-    Bạn là chuyên gia trích xuất thông tin có giá trị, chuyên sâu và rất chính xác
+    You are an expert at extracting valuable, in-depth, and very accurate information
 
-Hãy trích xuất thông tin giúp tôi từ hình ảnh được cung cấp theo các tiêu chí sau:
+Please help me extract information from the provided image according to the following criteria:
 
-1. Tìm và liệt kê các đồ vật chứa logo của hãng Heineken
+1. Find and list objects containing the Heineken brand logo
 
-2. Xác định chính xác số lượng thùng đá, chai, tủ lạnh, biển hiệu, áp phích, quầy trưng bày, bàn trưng bày, ô dù của hãng Heineken và số lượng không phải của hãng
+2. Determine the exact number of ice boxes, bottles, refrigerators, signs, posters, display counters, display tables, and umbrellas of the Heineken brand and the number of non-Heineken brands
 
-Cho biết các nhãn hàng thuộc hãng Heineken là một trong các nhãn hàng: Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow.
+Indicate that the brands belonging to Heineken are among the brands: Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss, and Strongbow.
 
-Yêu cầu bắt buộc: tập trung nhận diện thật kỹ, chính xác giúp tôi; trả lời không lòng vòng, nếu kết quả không chắc chắn thì không được kết luận, nêu số lượng đồ vật không chắc chắn, dự đoán tên gọi của đồ vật đó và đưa ra nguyên nhân không chắc chắn nhận diện hình ảnh, trả lời bằng Tiếng Anh
-    Thông tin chi tiết:
+Requirements: focus on identifying carefully and accurately, help me; answer without beating around the bush, if the result is uncertain then do not conclude, state the number of uncertain objects, predict the name of that object, and give the cause of uncertainty identify the image, answer in English
+ Details Description:
 """
 
 SOLUTION_THREE_PROMPT = f"""
-    Bạn là chuyên gia trích xuất thông tin có giá trị, chuyên sâu và phải chính xác từ hình ảnh được cung cấp, hãy cho tôi biết: hành động, cử chỉ, thái độ, vẻ mặt của từng người, đánh giá độ thành công của sự kiện đó. Yêu cầu bắt buộc: trả lời chính xác, trả lời bằng tiếng Việt, chỉ tập trung vào sản phẩm liên quan đến bia. Cần chắc chắn mới kết luận, hình ảnh mờ là những hình ảnh không chắc chắn thì không kết luận, trả lời bằng Tiếng Anh
+    You are an expert in extracting valuable, in-depth, and accurate information from the provided images, please tell me: the actions, gestures, attitudes, and facial expressions of each person, and the assessment of the event's success. Requirements: answer correctly, and only focus on beer-related products. It would help if you were sure to conclude. Blurred images are uncertain images and cannot be concluded.
 """
 SOLUTION_FOUR_PROMPT = f"""
-    Bạn là chuyên gia trích xuất thông tin có giá trị, chuyên sâu và phải chính xác, từ hình ảnh được cung cấp, hãy cho tôi biết: số lượng nhân viên tiếp thị có trong hình ảnh và đánh giá xem có đáp ứng với yêu cầu hay không? Cho biết nếu ít hơn 2 nhân viên thì đánh giá sự kiện không đáp ứng yêu cầu. Nhân viên tiếp thị là một người có mặc quần áo có in logo các nhãn hàng bia. Yêu cầu bắt buộc: trả lời chính xác, trả lời bằng tiếng Việt, chỉ tập trung vào sản phẩm liên quan đến bia. Cần chắc chắn mới kết luận, hình ảnh mờ là những hình ảnh không chắc chắn thì không kết luận, trả lời bằng Tiếng Anh.
+    You are an expert in extracting valuable, in-depth, and accurate information, from the image provided, please tell me: the number of marketing staff in the image and evaluate whether it meets the requirements demand or not. Indicates that if there are fewer than 2 employees, the event assessment does not meet the requirements. A marketing staff is a person who wears clothes with beer brand logos printed on them. Mandatory requirements: answer correctly, and only focus on beer-related products. It would help if you were certain to conclude, that blurry images are uncertain images and are not conclusive.
 """
 
 SOLUTION_FIVE_PROMPT = f"""
-Tôi cần cung cấp thông tin về mức độ hiện diện tại cửa hàng để đánh giá chất lượng của độ hiện diện của hãng Heineken.
+I need to provide information about the level of presence in the store to evaluate the quality of Heineken's presence.
 
-Cho biết các nhãn hàng thuộc hãng Heineken là một trong các nhãn hàng: Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow. Cho biết số lượng chính xác biển quảng cáo, tủ lạnh, thùng bia của hãng.
+Indicate that the brands belonging to Heineken are among the brands: Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss, and Strongbow. Indicate the exact number of print advertising, standee, and beer crates of the company.
 
-Cho biết cửa hàng cần phải có ít nhất 1 biển quảng cáo với logo của chúng ta, một tủ lạnh có logo của hãng và số lượng thùng bia ít nhất 10 thùng của hãng Heineken. Từ đó đưa ra kết luận sự hiện diện của Heineken có đáp ứng tiêu chuẩn hay không? Nếu không đáp ứng thì cần nêu rõ tiêu chí không đạt và số lượng còn thiếu.
+Indicate that the store needs to have at least 1 print advertising with the Heineken logo, a standee with the company's logo, and at least 10 crates of Heineken beer. From there, we can conclude whether Heineken's presence meets the standards or not. If not met, it is necessary to clearly state the failure criteria and the missing quantity.
 
-Cần chắc chắn mới kết luận, hình ảnh mờ là những hình ảnh không chắc chắn thì không kết luận.
+It would help if you were certain to conclude, that blurry images are uncertain images and are not conclusive.
 """
 
 HUMAN_DETECTION_PROMPT = """
