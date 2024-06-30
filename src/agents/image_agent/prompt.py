@@ -21,11 +21,11 @@ SOLUTION_FOUR_PROMPT = f"""
 """
 
 SOLUTION_FIVE_PROMPT = f"""
-Tôi cần cung cấp thông tin về mức độ hiện diện tại cửa hàng để đánh giá chất lượng của độ hiện diện của hãng Heineken. 
+Tôi cần cung cấp thông tin về mức độ hiện diện tại cửa hàng để đánh giá chất lượng của độ hiện diện của hãng Heineken.
 
-Cho biết các nhãn hàng thuộc hãng Heineken là một trong các nhãn hàng: Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow. Cho biết số lượng chính xác biển quảng cáo, tủ lạnh, thùng bia của hãng. 
+Cho biết các nhãn hàng thuộc hãng Heineken là một trong các nhãn hàng: Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow. Cho biết số lượng chính xác biển quảng cáo, tủ lạnh, thùng bia của hãng.
 
-Cho biết cửa hàng cần phải có ít nhất 1 biển quảng cáo với logo của chúng ta, một tủ lạnh có logo của hãng và số lượng thùng bia ít nhất 10 thùng của hãng Heineken. Từ đó đưa ra kết luận sự hiện diện của Heineken có đáp ứng tiêu chuẩn hay không? Nếu không đáp ứng thì cần nêu rõ tiêu chí không đạt và số lượng còn thiếu. 
+Cho biết cửa hàng cần phải có ít nhất 1 biển quảng cáo với logo của chúng ta, một tủ lạnh có logo của hãng và số lượng thùng bia ít nhất 10 thùng của hãng Heineken. Từ đó đưa ra kết luận sự hiện diện của Heineken có đáp ứng tiêu chuẩn hay không? Nếu không đáp ứng thì cần nêu rõ tiêu chí không đạt và số lượng còn thiếu.
 
 Cần chắc chắn mới kết luận, hình ảnh mờ là những hình ảnh không chắc chắn thì không kết luận.
 """
@@ -50,14 +50,12 @@ Bạn hãy xác định các lon bia và chai bia và người xuất hiện tro
 
 
 def detection_human(human_count):
-    SOLUTION_ONE_PROMPT = f"""
-    Bạn là một chuyên gia phân tích thông tin hình ảnh, có khả năng phân biệt và đánh giá hình ảnh dựa trên tiêu chí cụ thể. CHÚ Ý các thương hiệu Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow, trả lời bằng Tiếng Việt
-    Tiêu chí:
-    Đếm số lượng người xuất hiện trong mỗi ảnh.
-    Xác định và thông báo số lượng người đang uống các loại bia của Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow một cách chính xác dựa trên vật phẩm (lon/chai/ly) của người uống đang để trước mặt hoặc đang cầm, không tính vật trưng bày. Và tôi có đội ngũ phân tích hình ảnh cho kết quả trong ảnh này có : {human_count} người
-    Quy trình:
-    Đếm số lượng người xuất hiện trong mỗi ảnh.
-    Xác định và thống kê mọi người đang uống bia gì (Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow) dựa trên logo và so sánh trên tổng số người xuất hiện
-    Thông tin chi tiết:
-    """
-    return SOLUTION_ONE_PROMPT
+  SOLUTION_ONE_PROMPT = f"""
+  Bạn là một chuyên gia phân tích thông tin hình ảnh, có khả năng phân biệt và đánh giá hình ảnh dựa trên tiêu chí cụ thể. CHÚ Ý các thương hiệu Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow, trả lời bằng Tiếng Việt
+  Tiêu chí:
+  Đếm số lượng người xuất hiện trong mỗi ảnh. Và tôi có đội ngũ phân tích hình ảnh cho kết quả trong ảnh này có : {human_count} người
+  Quy trình:
+  Đếm số lượng người xuất hiện trong mỗi ảnh.
+  Thông tin chi tiết:
+  """
+  return SOLUTION_ONE_PROMPT

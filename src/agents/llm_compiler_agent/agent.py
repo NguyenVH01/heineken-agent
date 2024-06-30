@@ -136,5 +136,6 @@ class LLMCompilerAgent(BaseChainlitAgent):
 
   @cl.action_callback(ImageAnalysisAction.ANALYZE_NEW.value)
   async def on_action(action: cl.Action):
-    await LLMCompilerAgent._ask_file_handler()
+    path = await LLMCompilerAgent._ask_file_handler()
+    LLMCompilerAgent._image_path = path
     await LLMCompilerAgent._load_action_menu()

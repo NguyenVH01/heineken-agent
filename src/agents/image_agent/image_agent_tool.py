@@ -135,7 +135,8 @@ class ImageAgent:
     return image_bytes
 
   def read_image(self):
-    image = Image.open(self._image_path)
+    from src.agents.llm_compiler_agent.agent import LLMCompilerAgent
+    image = Image.open(LLMCompilerAgent._image_path)
     return image
 
   async def object_detection(self, image):
