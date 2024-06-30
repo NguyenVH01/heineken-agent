@@ -6,4 +6,4 @@ class ImageAnalysisAction(Enum):
   SOLUTION_THREE = "Evaluate success event"
   SOLUTION_FOUR = "Follow marketing staff"
   SOLUTION_FIVE = "Assess retail presence"
-  ANALYZE_NEW = "Assess retail presence"
+  ANALYZE_NEW = "Analyze new image"

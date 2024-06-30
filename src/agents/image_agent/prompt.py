@@ -51,12 +51,12 @@ Bạn hãy xác định các lon bia và chai bia và người xuất hiện tro
 
 def detection_human(human_count):
   SOLUTION_ONE_PROMPT = f"""
-  Bạn là một chuyên gia phân tích thông tin hình ảnh, có khả năng phân biệt và đánh giá hình ảnh dựa trên tiêu chí cụ thể. CHÚ Ý các thương hiệu Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss và Strongbow, trả lời bằng Tiếng Anh
-  Tiêu chí:
-  Đếm số lượng người xuất hiện trong mỗi ảnh. Và tôi có đội ngũ phân tích hình ảnh cho kết quả trong ảnh này có : {human_count} người
-  Quy trình:
-  1. Đếm số lượng người xuất hiện trong mỗi ảnh.
-  2.Xác định có bao nhiêu người đang cầm chai bia hoặc ly bia ?
-  Thông tin chi tiết:
+  You are an expert in analyzing visual information, capable of distinguishing and evaluating images based on specific criteria. ATTENTION brands Heineken, Tiger, Bia Viet, Larue, Bivina, Edelweiss and Strongbow, answer in English
+  Criteria:
+  Count the number of people appearing in each photo. And I have an image analysis team that gives results in this image: {human_count} people
+  Procedure:
+  1. Count the number of people appearing in each photo.
+  2. Determine how many people are holding beer bottles or beer glasses?
+  Details:
   """
   return SOLUTION_ONE_PROMPT
