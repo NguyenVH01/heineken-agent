@@ -10,7 +10,6 @@ Our advanced system will help you better understand the quick and effective use 
 
 **1. Clone the repository:**
 ```bash
-git clone https://github.com/NguyenVH01/heineken-agent.git
 cd heineken-agent
 ```
 
